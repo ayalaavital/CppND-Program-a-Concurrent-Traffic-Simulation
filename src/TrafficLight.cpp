@@ -52,12 +52,10 @@ void TrafficLight::simulate()
 
 double TrafficLight::getRandCycleDuration()
 {
-    const int minDuration = 4;
-    const int maxDuration = 6;
-    const int range = maxDuration - minDuration;
-
-    double cycleDuration = minDuration + static_cast<double> (std::rand()) / (static_cast<double>(RAND_MAX / range)); // duration of a single cycle in s
-    cycleDuration *= 1000; // duration of a single cycle in ms
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<> dis(4000.0, 6000.0); // duration of a single cycle in ms
+    double cycleDuration = dis(gen);
 
     return cycleDuration;
 }
